@@ -1,0 +1,29 @@
+{
+    "name": "app",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www",
+        "dev": "nodemon -L ./bin/www"
+    },
+    "dependencies": {
+        "axios": "latest",
+        "cors": "^2.8.5",
+        "debug": "~2.6.9",
+        "jade": "~1.11.0",
+        "bcrypt": "latest",
+        "morgan": "~1.9.1",
+        "multer": "^1.4.4",
+        "express": "~4.16.1",
+        "http-errors": "~1.6.3",
+        "jsonwebtoken": "latest",
+        "joi": "^17.6.0",
+        "cookie-parser": "~1.4.4",
+        "express-jsdoc-swagger": "latest",
+        "mysql2": "^2.2.5",
+        "sequelize": "latest"
+    },
+    "devDependencies": {
+        "nodemon": "latest"
+    }
+}

@@ -1,0 +1,57 @@
+version: "3"
+services:
+  project_statistics_15:
+    build: .
+    ports:
+     - "10001:3000"
+    env_file:
+      - "./.prod.env"
+    volumes:
+      - public-express-project_statistics_15:/app/public
+    depends_on:
+      - db_statistics_15
+  db_statistics_15:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=codifyer_database
+      - MYSQL_DATABASE=db_statistics_15
+    volumes:
+      - mysql-db-project_statistics_15:/var/lib/mysql
+    ports:
+      - "3004:3306"
+  phpmyadmin_statistics_15:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_statistics_15
+    links:
+      - db_statistics_15
+    environment:
+      PMA_HOST: db_statistics_15
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 3001:80
+  grafana:
+    links:
+      - db_statistics_15:db_statistics_15
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      - GF_DATABASE_HOST=db_statistics_15:3306
+      - GF_DATABASE_NAME=db_statistics_15
+      - GF_DATABASE_USER=root
+      - GF_DATABASE_PASSWORD=codifyer_database
+      - GF_DATABASE_TYPE=mysql
+      - GF_DATABASE_MAX_OPEN_CONN=300
+    ports:
+      - 9000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on: ["db_statistics_15"]
+
+volumes:
+  mysql-db-project_statistics_15:
+  public-express-project_statistics_15:
+  grafana-data:

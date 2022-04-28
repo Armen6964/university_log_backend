@@ -1,0 +1,9 @@
+./node_modules
+./idea
+./vscode
+Dockerfile
+.dockerignore
+.git
+.gitignore
+docker-compose*
+./package-lock.json
